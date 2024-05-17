@@ -1,0 +1,27 @@
+select * from Cliente;
+
+-- Retorna os comando em ordem (DESK= descendente) e (ASK= ascendente)
+select Nome from Cliente order by Nome asc;
+
+-- retorna quantidade total 
+select count(Categoria) from Produto where Categoria = 'Peça Automobilística';
+
+desc Vendedor;
+
+-- seleciona atributos específicos
+select Descricao, Frete from Pedido;
+
+-- seleciona atributos específicos e da um nome temporario novo para os atributos
+select Descricao as froma_de_compra, Frete as soma_de_fretes from Pedido;
+
+select sum(Frete) from Pedido;
+
+-- pega o ultimo valor em order alfabetica
+select max(TipoPagamento) from FormaPagamento;
+
+-- quantidade de cpf por endereço agrupado
+select count(Nome), Endereco from Cliente group by Endereco;
+
+
+
+

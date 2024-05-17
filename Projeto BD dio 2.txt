@@ -1,0 +1,66 @@
+use projeto_ecommerce;
+
+insert into Cliente(CPF, CNPJ, Nome, NomeFantasma, RazãoSocial, Endereco)
+			values (12345678912, null, 'Fatima Bernardes', null, null, 'rua Euclides da cunha 197 - RS'),
+				   (98765432198, null, 'José Claudio', null, null, 'rua Fernado Ferrari 557 - SC'),
+                   (NULL, 45612378914725, null, 'Auto peças Fuzzer', 'Equipamento de Carros', 'rua Jubileu 309 - PR'),
+				   (NULL, 35655578914725, null, 'Atacadão', 'Mercado Varejo', 'rua Flores Don Ignácio 665 - RJ'),
+				   (88756432198, null, 'Felipe Alvez', null, null, 'rua Jurerê Internacional 89 - SC');
+
+insert into Produto(Categoria, Descricao, Preco)
+			values ('Alimentos', 'Farinha', 16.99),
+				   ('Alimentos', 'Óleo de soja', 5.00),
+                   ('Alimentos', 'Coca-Cola', 8.65),
+                   ('Peça automobilística', 'Farol', 200.00),
+                   ('Peça automobilística', 'Câbio', 169.70);
+
+insert into Pedido(idPedidoCliente, StatusPedido, Descricao, Frete)
+			values (1,default, 'Compra Website', 00.00),
+                   (2,default, 'Compra Website', 15.40),
+                   (3,default, 'Loja', 00.00),
+                   (4,default, 'Compra Website', 17.95);
+
+insert into Estoque(LocalEstoque)
+			values('RJ'),
+				  ('RJ'),
+                  ('SC'),
+                  ('PR'),
+                  ('RS');
+
+insert into Fornecedor(CNPJ, RazaoSocial)
+			values (03216549871475, 'Varejo'),
+				   (32116549871477, 'Varejo'),
+                   (03216779866475, 'Venda de Peças');
+
+insert into Vendedor( CNPJ, RazaoSocial,  NomeFantasia, Endereco)
+			values (45625879830,'Mercado', 'Supra', 'rua Querêcia 446 - SP-BR'),
+				   (78912345684 ,'Loja', 'Rafinha auto', 'rua Das farmas 554 - RJ-BR'),
+				   (03214569871, 'Mercado', 'Peixe Boi', 'rua Sócrates 777 - RS-BR');
+
+insert into FormaPagamento(idPagamento, idFPCliente, TipoPagamento)
+			values (1, 2, 'Cartão'),
+				   (2, 1, 'Cartão'),
+                   (3, 3, 'Boleto');
+
+insert into ProdutoPedido(idPProduto,idPPedido)
+			values (1,1),
+				   (2,2),
+                   (3,3);
+
+insert into ProdutoVendedor(idPVProduto, idPVVendedor)
+			values (1,1),
+				   (2,2),
+                   (3,3);
+
+insert into ProdutoFornecedor(idPFProduto, idPFFornecedor, Quantidade)
+			values (1,1,30),
+				   (2,2,25),
+                   (3,3,50);
+
+
+insert into ProdutoEstoque(idPEProduto, idPEEstoque)
+			values (1,1),
+				   (2,2),
+                   (3,3);
+
+

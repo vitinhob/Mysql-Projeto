@@ -1,0 +1,93 @@
+-- drop database projeto_ecommerce;
+create database projeto_ecommerce;
+use projeto_ecommerce;
+
+create table Cliente(
+		idCliente int auto_increment primary key,
+        CPF char(11) null,
+        CNPJ char(14) null,
+        Nome varchar(45) null,
+        NomeFantasma varchar(45) null,
+        RazãoSocial varchar(45) null,
+        Endereco varchar(100) not null,
+        constraint unique_cpf_cliente unique (CPF),
+        constraint unique_CNPJ_cliente unique (CNPJ)
+);
+
+create table Produto(
+		idProduto int auto_increment primary key,
+        Categoria varchar(45) not null,
+        Descricao varchar(45) null,
+        Preco float
+);
+
+create table Pedido(
+		idPedido int auto_increment primary key,
+        idPedidoCliente int not null,
+        StatusPedido enum('Em andamento', 'Processando', 'A caminho') default 'Processando',
+        Descricao varchar(45) not null,
+        Frete float,
+        constraint fk_pedido_cliente foreign key (idPedidoCliente) references Cliente(idCliente)
+);
+
+create table Estoque(
+		idEstoque int auto_increment primary key,
+        LocalEstoque varchar(45)
+);
+
+create table Fornecedor(
+		idFornecedor int auto_increment primary key,
+        CNPJ char(14) not null,
+        RazaoSocial varchar(45) not null
+);
+
+create table Vendedor(
+		idVendedor int auto_increment primary key,
+        CNPJ char(14)not null,
+        RazaoSocial varchar(45) not null,
+        NomeFantasia varchar(45),
+        Endereco varchar(45) not null
+);
+
+create table FormaPagamento(
+		idPagamento int,
+        idFPCliente int,
+        TipoPagamento enum('Cartão','Boleto'),
+        primary key (idPagamento, idFPCliente),
+        constraint fk_forma_pagamento_cliente foreign key (idFPCliente) references Cliente(idCliente)
+);
+
+create table ProdutoPedido(
+		idPProduto int,
+        idPPedido int,
+        primary key (idPProduto,idPPedido),
+		constraint fk_produto_pedido_produto foreign key (idPProduto) references Produto(idProduto),
+        constraint fk_produto_pedido_pedido foreign key (idPProduto) references Pedido(idPedido)
+);
+
+create table ProdutoVendedor(
+		idPVProduto int,
+        idPVVendedor int,
+        primary key (idPVProduto, idPVVendedor),
+        constraint fk_produto_vendedor_produto foreign key (idPVProduto) references Produto(idProduto),
+        constraint fk_produto_vendedor_vendedor foreign key (idPVVendedor) references Vendedor(idVendedor)
+);
+
+create table ProdutoFornecedor(
+		idPFProduto int,
+        idPFFornecedor int,
+        Quantidade int,
+        primary key (idPFProduto,idPFFornecedor),
+		constraint fk_produto_fornecedor_produto foreign key (idPFProduto) references Produto(idProduto),
+        constraint fk_produto_fornecedor_fornecedor foreign key ( idPFFornecedor) references Fornecedor(idFornecedor)
+);
+
+create table ProdutoEstoque(
+		idPEProduto int,
+        idPEEstoque int,
+        primary key (idPEProduto, idPEEstoque),
+        constraint fk_produto_estoque_produto foreign key (idPEProduto) references Produto(idProduto),
+        constraint fk_produto_estoque_estoque foreign key (idPEEstoque) references Estoque(idEstoque)
+);
+
+show tables;
